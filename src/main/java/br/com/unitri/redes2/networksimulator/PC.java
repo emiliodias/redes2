@@ -15,7 +15,15 @@ public class PC extends Host {
 		
 		//Deverá pegar a interface de acordo com o destino, montar cabeçalho IP e etc...
 		
-		networkInterfaces.get(0).sendMessage(port, message);;
+		IPDatagram datagram = new IPDatagram();
+		datagram.setPayLoad(message);
+		
+		String ipAddress = networkInterfaces.get(0).getIPConfig().getAddress();
+		
+		datagram.setSourceAddress(ipAddress);
+		datagram.setDestinationAddress(destination);
+		
+		networkInterfaces.get(0).sendMessage(port, datagram);
 		
 	}
 	
